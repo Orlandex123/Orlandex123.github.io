@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Especial para ella</title>
+  <style>
+    body {
+      background-color: #ffc0cb;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    .botones-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
+      gap: 25px 30px;
+      margin-bottom: 30px;
+      justify-content: center;
+      width: 100%;
+      max-width: 1150px;
+    }
+
+    button {
+      background-color: #ff69b4;
+      border: none;
+      padding: 0;
+      border-radius: 15px;
+      color: white;
+      font-size: 26px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 6px 8px rgba(255, 105, 180, 0.6);
+      transition: background-color 0.3s ease;
+      width: 100%;
+      height: 100px;
+      text-align: center;
+      user-select: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button:hover {
+      background-color: #ff1493;
+    }
+
+    .seccion {
+      background-color: #fff0f6;
+      border: 2px solid #ff69b4;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 600px;
+      box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
+      margin-bottom: 30px;
+      color: #b30059;
+      font-size: 18px;
+      display: none;
+      /* Cambiamos a flex para secciones que lo necesitan */
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    ul {
+      padding-left: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+      width: 100%;
+      margin: 0;
+    }
+
+    .carta {
+      background-color: #ffe6f0;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 6px rgba(255, 105, 180, 0.3);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .btnVolverSeccion {
+      background-color: #ff69b4;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 105, 180, 0.5);
+      transition: background-color 0.3s ease;
+      user-select: none;
+      /* Quitamos position absoluta para que quede debajo */
+      align-self: center;
+    }
+
+    .btnVolverSeccion:hover {
+      background-color: #ff1493;
+    }
+
+    #seccion-fotos img {
+      max-width: 300px;
+      max-height: 300px;
+      margin: 10px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(255, 105, 180, 0.4);
+      object-fit: cover;
+    }
+
+    /* Específico para la sección racha */
+    #racha {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #b30059;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="botones-container" id="menu-principal">
+    <button id="btnLeer">Dale click para leer</button>
+    <button id="nuestras-fotos-btn">Nuestras fotos</button>
+    <button id="btnRacha">Nuestra racha</button>
+    <button id="btnCosas">Cosas que me gustan de ti</button>
+    <button id="btnCartas">Cartas lindas</button>
+    <button id="btnSpotify">Nuestra canción (Spotify)</button>
+  </div>
+
+  <div id="mensaje" class="seccion">
+    Hola, quería escribirte esto porque siento que hay cosas que no pueden seguir pasándome...
+    (aquí pon el texto completo de tu mensaje)
+    <button class="btnVolverSeccion">Volver</button>
+  </div>
+
+  <div id="racha" class="seccion">
+    🔥 <span id="contadorRacha">0</span> días de racha
+    <button class="btnVolverSeccion">Volver</button>
+  </div>
+
+  <div id="cosas-container" class="seccion">
+    <ul id="lista-cosas"></ul>
+    <button class="btnVolverSeccion">Volver</button>
+  </div>
+
+  <div id="cartas-container" class="seccion">
+    <div id="lista-cartas" style="width: 100%; max-height: 400px; overflow-y: auto;"></div>
+    <button class="btnVolverSeccion">Volver</button>
+  </div>
+
+  <div id="nuestra-cancion" class="seccion" style="text-align:center;">
+    <iframe 
+      src="https://open.spotify.com/embed/track/0Lahr7sUDdtYnX3n3KobR6" 
+      allowtransparency="true" 
+      allow="encrypted-media"
+      width="100%" height="380" frameborder="0"
+      style="border-radius:15px; margin-top:10px;"
+    ></iframe>
+    <button class="btnVolverSeccion">Volver</button>
+  </div>
+
+  <div id="seccion-fotos" class="seccion" style="text-align:center;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+      <img src="foto1.jpg.jpeg" alt="Foto 1" />
+      <img src="foto2.jpg.jpeg" alt="Foto 2" />
+      <img src="foto3.jpg.jpeg" alt="Foto 3" />
+      <img src="foto4.jpg.jpeg" alt="Foto 4" />
+    </div>
+    <button class="btnVolverSeccion">Volver</button>
+  </div>
+
+<script>
+  const fechaInicioRacha = new Date('2025-03-04'); 
+  const fechaInicioCartas = new Date('2025-06-13'); 
+  const hoy = new Date();
+
+  const diasRacha = Math.floor((hoy - fechaInicioRacha) / (1000 * 60 * 60 * 24));
+  document.getElementById('contadorRacha').textContent = diasRacha;
+
+  const cosas = [
+    "Tus ojos",
+    "Tu sonrisa",
+    "Tu voz",
+    "Cómo te ríes",
+    "Tu forma de mirar cuando estás concentrada",
+    "La forma en la que te preocupas por los demás",
+    "Tu risa contagiosa",
+    "Tus abrazos",
+    "Tu forma de caminar",
+    "Tu paciencia",
+  ];
+  for(let i=cosas.length; i<100; i++){
+    cosas.push(`Algo más que me encanta de ti... (${i+1})`);
+  }
+
+  const cartas = [
+    "Carta 1: Hoy solo quiero decirte que te admiro mucho.",
+    "Carta 2: Me haces sentir paz como nadie más.",
+    "Carta 3: Eres magia, aunque a veces no lo veas.",
+    "Carta 4: Si pudiera elegir mil veces, te elegiría a ti.",
+    "Carta 5: Tu energía cambia mis días.",
+    "Carta 6: Eres mi pensamiento bonito.",
+    "Carta 7: Te extraño incluso cuando acabamos de hablar.",
+    "Carta 8: Tu sonrisa me da fuerza.",
+    "Carta 9: Gracias por existir.",
+    "Carta 10: Cada día contigo es un regalo.",
+  ];
+
+  const btnLeer = document.getElementById('btnLeer');
+  const mensaje = document.getElementById('mensaje');
+  const btnFotos = document.getElementById('nuestras-fotos-btn');
+  const seccionFotos = document.getElementById('seccion-fotos');
+  const cancion = document.getElementById('nuestra-cancion');
+  const btnRacha = document.getElementById('btnRacha');
+  const racha = document.getElementById('racha');
+  const btnCosas = document.getElementById('btnCosas');
+  const cosasContainer = document.getElementById('cosas-container');
+  const listaCosas = document.getElementById('lista-cosas');
+  const btnCartas = document.getElementById('btnCartas');
+  const cartasContainer = document.getElementById('cartas-container');
+  const listaCartas = document.getElementById('lista-cartas');
+  const btnSpotify = document.getElementById('btnSpotify');
+  const menuPrincipal = document.getElementById('menu-principal');
+
+  const secciones = [mensaje, seccionFotos, cancion, racha, cosasContainer, cartasContainer];
+
+  function hideAllSections(){
+    secciones.forEach(s => s.style.display = 'none');
+    menuPrincipal.style.display = 'none';
+  }
+
+  function showMenu(){
+    secciones.forEach(s => s.style.display = 'none');
+    menuPrincipal.style.display = 'grid';
+  }
+
+  // Botones principales para mostrar secciones
+  btnLeer.onclick = () => {
+    hideAllSections();
+    mensaje.style.display = 'flex';
+  };
+
+  btnFotos.onclick = () => {
+    hideAllSections();
+    seccionFotos.style.display = 'flex';
+  };
+
+  btnRacha.onclick = () => {
+    hideAllSections();
+    racha.style.display = 'flex';
+  };
+
+  btnCosas.onclick = () => {
+    hideAllSections();
+    cosasContainer.style.display = 'flex';
+  };
+
+  btnCartas.onclick = () => {
+    hideAllSections();
+    cartasContainer.style.display = 'flex';
+    mostrarCartasSegunDia();
+  };
+
+  btnSpotify.onclick = () => {
+    hideAllSections();
+    cancion.style.display = 'flex';
+  };
+
+  // Volver botones en cada sección
+  document.querySelectorAll('.btnVolverSeccion').forEach(btn => {
+    btn.onclick = () => {
+      showMenu();
+    }
+  });
+
+  // Rellenar lista cosas que me gustan
+  function cargarCosas(){
+    listaCosas.innerHTML = '';
+    cosas.forEach((item) => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      listaCosas.appendChild(li);
+    });
+  }
+  cargarCosas();
+
+  // Mostrar cartas según días transcurridos desde fechaInicioCartas
+  function mostrarCartasSegunDia(){
+    const diffDias = Math.floor((hoy - fechaInicioCartas) / (1000 * 60 * 60 * 24));
+    const cartasParaMostrar = cartas.slice(0, diffDias + 1);
+    listaCartas.innerHTML = '';
+    cartasParaMostrar.forEach(texto => {
+      const div = document.createElement('div');
+      div.className = 'carta';
+      div.textContent = texto;
+      listaCartas.appendChild(div);
+    });
+  }
+</script>
+</body>
+</html>
